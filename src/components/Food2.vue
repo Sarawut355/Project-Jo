@@ -30,10 +30,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(mi, index) in Data" :key="index">
-           <td>{{ mi.Name }}</td>
-          <td>{{ mi.Price }}</td>
-          <td>{{ mi.Popular }}</td>
+        <tr v-for="(mi, index) in DataLunch" :key="index" id="text-color">
+           <td>{{ mi.luname }}</td>
+          <td>{{ mi.luprice }}</td>
+          <td>{{ mi.lupop }}</td>
         </tr>
       </tbody>
     </table>
@@ -42,11 +42,47 @@
 
 <script>
 export default {
-    data() {
-        return {
-            Data:[]
-        }
+  data() {
+    return {
+      DataLunch: [],
+      FoodName: "",
+      Price: Number,
+      Popular: Number,
+    };
+  },
+  created() {
+    this.list_Lunch();
+  },
+  methods: {
+    addData() {
+      alert("CompleteFood2");
+      var dataInsert = {
+        luname: this.FoodName,
+        luprice: this.Price,
+        lupop: this.Popular,
+      };
+      console.log(dataInsert);
+      this.$_api
+        .post("/Insert-lunch", dataInsert)
+        .then((response) => {
+          console.log(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
+    list_Lunch() {
+      this.$_api
+        .get("/list-lunch")
+        .then((res) => {
+          console.log(res.data.data);
+          this.DataLunch = res.data.data;
+        })
+        .cath((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 

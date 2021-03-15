@@ -12,7 +12,7 @@
           >
             <b-card-text
               ><b id="shadow" style="font-size: 80px"
-                >{{ Sum }}</b
+                >{{ ShowAns }}</b
               ></b-card-text
             >
             <b-container>
@@ -20,21 +20,31 @@
                 >ลองอีกครั้ง</b-button
               >
               &nbsp;
-              <b-button @click="Logout" variant="outline-primary">ออก</b-button>
+              <b-button href="/" variant="outline-primary">ออก</b-button>
             </b-container></b-card
           >
         </b-card-group>
       </b-container>
     </b-row>
-    
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   props: {
     HelloWorld: String,
     Sum: String,
   },
+  computed: {
+    ...mapGetters(["UserLogout", "ShowUserLogin","ShowAns"]),
+  },
+  // beforeCreate() {
+  //   if (this.$route.params.id != undefined) {
+  //     //
+  //   } else {
+  //     this.$router.replace("/login");
+  //   }
+  // },
   methods: {
     Again() {
       this.$router.replace("/select");

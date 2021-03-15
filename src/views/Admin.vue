@@ -34,8 +34,8 @@ export default {
       this.ans = 3;
     },
   },
-  mounted() {
-    if (this.User =="Shinobu") {
+  beforeCreate() {
+    if (this.$route.params.User=="忍") {
       // User is signed in.
     } else {
       // No user is signed in.

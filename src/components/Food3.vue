@@ -30,10 +30,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(mi, index) in Data" :key="index">
-           <td>{{ mi.Name }}</td>
-          <td>{{ mi.Price }}</td>
-          <td>{{ mi.Popular }}</td>
+        <tr v-for="(mi, index) in DataDinner" :key="index" id="text-color">
+           <td>{{ mi.dnname }}</td>
+          <td>{{ mi.dnprice }}</td>
+          <td>{{ mi.dnpop }}</td>
         </tr>
       </tbody>
     </table>
@@ -42,11 +42,47 @@
 
 <script>
 export default {
-    data() {
-        return {
-            Data:[]
-        }
+  data() {
+    return {
+      DataDinner: [],
+      FoodName: "",
+      Price: Number,
+      Popular: Number,
+    };
+  },
+  created() {
+    this.list_Dinner();
+  },
+  methods: {
+    addData() {
+      alert("CompleteFood3");
+      var dataInsert = {
+        dnname: this.FoodName,
+        dnprice: this.Price,
+        dnpop: this.Popular,
+      };
+      console.log(dataInsert);
+      this.$_api
+        .post("/Insert-dinner", dataInsert)
+        .then((response) => {
+          console.log(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
+    list_Dinner() {
+      this.$_api
+        .get("/list-dinner")
+        .then((res) => {
+          console.log(res.data.data);
+          this.DataDinner = res.data.data;
+        })
+        .cath((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 
